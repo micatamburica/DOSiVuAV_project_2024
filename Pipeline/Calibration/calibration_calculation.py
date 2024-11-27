@@ -7,8 +7,7 @@ def run_chessboard_calibration(srcImgPath, NumRows, NumColumns):
     Calibrates camera using a set of chessboard images
 
     returns:
-        mtx - matrix containing the intrinsic parameters of the camera  
-        dist - vector containing the distortion coefficients of the camera lens
+        none
     """
     
     # termination criteria for finding the chessboard 
@@ -52,5 +51,6 @@ def run_chessboard_calibration(srcImgPath, NumRows, NumColumns):
           
     # calibrate the camera     
     ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
-     
-    return mtx, dist
+    
+    # saving them in calib.npz
+    numpy.savez('calib.npz', mtx=mtx, dist=dist, rvecs=rvecs, tvecs=tvecs)
