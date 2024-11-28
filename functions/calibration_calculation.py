@@ -4,7 +4,7 @@ import glob
 
 def run_chessboard_calibration(srcImgPath, NumRows, NumColumns):
     """
-    Calibrates camera using a set of chessboard images
+    Calibrates camera using a set of chessboard images, saves the result in calib.npz
 
     returns:
         none
