@@ -25,6 +25,7 @@ def distortion_correction(srcImgPath, srcImgName, undistort = False, side_by_sid
     
     # load one of the original distorted images
     Img = cv2.imread(srcImgPath + srcImgName)
+    Img = cv2.resize(Img, (1280, 720))
     h, w = Img.shape[:2]
  
     # obtain the new camera matrix
