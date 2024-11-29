@@ -8,18 +8,19 @@ import cv2
 if __name__=="__main__":
     
     srcImgPath = 'test_images/'
-    srcImgName = 'test2.jpg'
+    srcImgName = 'solidYellowCurve2.jpg'
     
     originalImg = cv2.imread(srcImgPath + srcImgName)
     
     # 1. Distortion correction
     undistoredImg = CamCal.distortion_correction(originalImg)
 
+'''
     # 2. Thresholded binary image
     treshBinImg = procc.detection(undistoredImg, srcImgName)
     
     # 3. Perspective transformation 
-    transformedImg = procc.transformation(treshBinImg, srcImgName)
+    transformedImg = procc.transformation(treshBinImg, srcImgName, True)
     
     # 4. Identify lane-line pixels
     identifiedImg, lx, rx, ly, ry = idden.identify(transformedImg, srcImgName)
@@ -55,4 +56,4 @@ if __name__=="__main__":
     cv2.imshow("Lane Detection - Sliding Windows", undistoredImg)
     
     cv2.waitKey(0)
-    
+'''

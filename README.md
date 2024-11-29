@@ -26,7 +26,7 @@ Distortion correction of an image is done by taking a distorted image, computing
 
 ***FIND IN CODE     Functions/CameraCalibration.py:  distortion_correction() [5-40]***
 
-The camera calibration and image distortion correction can be tested with the given code:   <ins>python calibration_main.py</ins>
+The camera calibration and image distortion correction can be tested with the given command:   <ins>python calibration_main.py</ins>
 
 ***FIND IN CODE     calibration_main.py:  main [4-21]***
 
@@ -35,9 +35,16 @@ The camera calibration and image distortion correction can be tested with the gi
 
 ### Pipeline (single images)
 
+The image pipeline can be tested with the given command:   <ins>python image_pipeline_main.py</ins>
+
 #### 1. Provide an example of a distortion-corrected image.
 
-TODO: Add your text here!!!
+First step in the pipeline is to correct distortion of an original image. This way image is more representative of the real life measures.
+
+***FIND IN CODE     image_pipeline_main.py:  # 1. Distortion correction***
+***FIND IN CODE     Functions/CameraCalibration.py:  distortion_correction() [5-40]***
+
+![plot](./output/undistorted_solidYellowCurve2.jpg)
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
