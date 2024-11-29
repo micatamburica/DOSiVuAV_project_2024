@@ -1,10 +1,48 @@
-import numpy
 import cv2
+import numpy
 import glob
+
+def distortion_correction(originalImg, srcImgName = None):
+    """
+    Corrects the distortion of a given image and returns it
+    
+    params:
+        srcImgName - if given a value, 
+        undistorted image will be saved in output/, 
+        as well as the side by side of distorted and undistorted.
+
+    returns:
+        undistortedImg 
+    """
+    
+    # load calibrated camera parameters
+    calibration = numpy.load('calib.npz')
+    mtx = calibration['mtx']
+    dist = calibration['dist']
+    rvecs = calibration['rvecs']
+    tvecs = calibration['tvecs']
+    
+    # load one of the original distorted images
+    Img = cv2.resize(originalImg, (1280, 720))
+    h, w = Img.shape[:2]
+ 
+    # obtain the new camera matrix
+    newcameraMtx, roi = cv2.getOptimalNewCameraMatrix(mtx, dist, (w, h), 1, (w, h))
+
+    # undistort the original image
+    undistortedImg = cv2.undistort(Img, mtx, dist, None, newcameraMtx)
+    
+    # save the final result if needed
+    if srcImgName is not None:
+        cv2.imwrite('output/undistorted_' + srcImgName, undistortedImg)
+        cv2.imwrite('output/sbys_' + srcImgName, numpy.hstack((Img, undistortedImg)))
+        
+    return undistortedImg
+
 
 def run_chessboard_calibration(srcImgPath, NumRows, NumColumns):
     """
-    Calibrates camera using a set of chessboard images, saves the result in calib.npz
+    Calibrates camera using a set of chessboard images, saves the result in calib.npz.
 
     returns:
         none
@@ -37,20 +75,8 @@ def run_chessboard_calibration(srcImgPath, NumRows, NumColumns):
             corners2 = cv2.cornerSubPix(gray, corners, (11,11), (-1,-1), criteria)
             imgpoints.append(corners2)
     
-        '''
-            # draw and display the corners
-            cv2.drawChessboardCorners(img, (NumRows, NumColumns), corners2, ret)
-            cv2.imshow('Image with found corners', img)
-            
-        else:
-        
-            cv2.imshow('Image where corners were not found', img)
-            
-        cv2.waitKey(0)
-        '''
-          
-    # calibrate the camera     
+    # find the calibration values of the camera  
     ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
     
-    # saving them in calib.npz
+    # save them in calib.npz
     numpy.savez('calib.npz', mtx=mtx, dist=dist, rvecs=rvecs, tvecs=tvecs)

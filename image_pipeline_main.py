@@ -1,19 +1,20 @@
-import functions.calibration_correction as correc
-import functions.image_processing as procc
-import functions.line_identifying as idden
-import functions.vehicle_calculation as vehhic
+import Functions.CameraCalibration as CamCal
+import Functions.image_processing as procc
+import Functions.line_identifying as idden
+import Functions.vehicle_calculation as vehhic
 import numpy
 import cv2
 
 if __name__=="__main__":
     
     srcImgPath = 'test_images/'
-    outputPath = 'output/'
     srcImgName = 'test2.jpg'
     
-    # 1. Distortion correction
-    undistoredImg = correc.distortion_correction(srcImgPath, srcImgName)
+    originalImg = cv2.imread(srcImgPath + srcImgName)
     
+    # 1. Distortion correction
+    undistoredImg = CamCal.distortion_correction(originalImg)
+
     # 2. Thresholded binary image
     treshBinImg = procc.detection(undistoredImg, srcImgName)
     
@@ -34,7 +35,7 @@ if __name__=="__main__":
     right_fit_x = right_poly[0] * plot_y**2 + right_poly[1] * plot_y + right_poly[2]
     
     # 5. Determine curvature and vehicle position
-    undistoredImg = correc.distortion_correction(srcImgPath, srcImgName)
+    undistoredImg = CamCal.distortion_correction(originalImg)
     round_left, round_right, round_avg = vehhic.radiusOfCurvature(undistoredImg, left_poly, right_poly)
     
     # Draw the polynomial line
