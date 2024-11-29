@@ -41,8 +41,7 @@ The image pipeline can be tested with the given command:   <ins>python image_pip
 
 First step in the pipeline is to correct distortion of an original image. This way image is more representative of the real life measures.
 
-***FIND IN CODE     image_pipeline_main.py:  # 1. Distortion correction***
-***FIND IN CODE     Functions/CameraCalibration.py:  distortion_correction() [5-40]***
+***FIND IN CODE     image_pipeline_main.py:  # 1. Distortion correction<br />FIND IN CODE     Functions/CameraCalibration.py:  distortion_correction() [5-40]***
 
 ![plot](./output/undistorted_solidYellowCurve2.jpg)
 
