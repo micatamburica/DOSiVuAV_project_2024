@@ -39,15 +39,19 @@ The image pipeline can be tested with the given command:   <ins>python image_pip
 
 #### 1. Provide an example of a distortion-corrected image.
 
-First step in the pipeline is to correct distortion of an original image. This way image is more representative of the real life measures.
+First step in the pipeline is to correct distortion of an original image. This way image is more representative of the real life measures. It is done by calling the function for it.
 
-***FIND IN CODE     image_pipeline_main.py:  # 1. Distortion correction<br />FIND IN CODE     Functions/CameraCalibration.py:  distortion_correction() [5-40]***
+***FIND IN CODE     image_pipeline_main.py:  # 1. Distortion correction [15-16]<br />FIND IN CODE     Functions/CameraCalibration.py:  distortion_correction() [5-40]***
 
 ![plot](./output/undistorted_solidYellowCurve2.jpg)
 
-#### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
+#### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image. Provide an example of a binary image result.
 
-TODO: Add your text here!!!
+Second step in the pipeline is to single out object of interest in the image, which is in this case white and yellow lines on the road. The chosen method is to use Canny egde detection algorithm, since it is good at identifying and extracting the edges of objects within an image. To prepare the image for the algorithm, the image is converted to grayscale, and gaussian blur is used to reduce noise.
+
+***FIND IN CODE     image_pipeline_main.py:  # 2. Thresholded binary image [18-19]<br />FIND IN CODE     Functions/ImageProcessing.py:  image_thresholding() [4-29]***
+
+![plot](./output/thresholded_solidYellowCurve2.jpg)
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 

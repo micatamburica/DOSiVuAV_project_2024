@@ -1,5 +1,5 @@
 import Functions.CameraCalibration as correc
-import Functions.image_processing as procc
+import Functions.ImageProcessing as procc
 import Functions.line_identifying as idden
 import Functions.vehicle_calculation as vehhic
 import numpy

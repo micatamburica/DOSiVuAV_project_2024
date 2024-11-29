@@ -1,5 +1,5 @@
 import Functions.CameraCalibration as CamCal
-import Functions.image_processing as procc
+import Functions.ImageProcessing as ImProc
 import Functions.line_identifying as idden
 import Functions.vehicle_calculation as vehhic
 import numpy
@@ -14,11 +14,11 @@ if __name__=="__main__":
     
     # 1. Distortion correction
     undistoredImg = CamCal.distortion_correction(originalImg)
-
-'''
-    # 2. Thresholded binary image
-    treshBinImg = procc.detection(undistoredImg, srcImgName)
     
+    # 2. Thresholded binary image
+    treshBinImg = ImProc.image_thresholding(undistoredImg)
+    
+'''
     # 3. Perspective transformation 
     transformedImg = procc.transformation(treshBinImg, srcImgName, True)
     

@@ -1,13 +1,13 @@
 import numpy
 import cv2
 
-def detection(Img, srcImgName = None, binary = False):
+def image_thresholding(Img, srcImgName = None):
     """
-    Creates a tresholded binary image using canny
+    Creates a tresholded binary image using Canny
     
     params:
-        binary = False (automatic)
-        binary = True (if you want tresholded binary image saved as output)
+        srcImgName - if given a value, 
+        thresholded image will be saved in output/.
 
     returns:
         treshBinImg 
@@ -23,10 +23,11 @@ def detection(Img, srcImgName = None, binary = False):
     treshBinImg = cv2.Canny(blur, 50, 180)
     
     # save the final result if needed
-    if(binary):
-        cv2.imwrite('output/binary_' + srcImgName, treshBinImg)
+    if srcImgName is not None:
+        cv2.imwrite('output/thresholded_' + srcImgName, treshBinImg)
     
     return treshBinImg
+
 
 def transformation(Img, srcImgName = None, transform = False):
     """
