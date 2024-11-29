@@ -1,7 +1,7 @@
 import numpy
 import cv2
 
-def detection(Img, srcImgName, binary = False):
+def detection(Img, srcImgName = None, binary = False):
     """
     Creates a tresholded binary image using canny
     
@@ -28,7 +28,7 @@ def detection(Img, srcImgName, binary = False):
     
     return treshBinImg
 
-def transformation(Img, srcImgName, transform = False):
+def transformation(Img, srcImgName = None, transform = False):
     """
     Changes the perspective into bird-eye view and returns it
     
@@ -40,10 +40,10 @@ def transformation(Img, srcImgName, transform = False):
         transformedImg 
     """
     
-    topL = (570, 450)
-    topR = (730, 450)
-    botL = (30, 700)
-    botR = (1250, 700)
+    topL = (560, 450)
+    topR = (750, 450)
+    botL = (0, 720)
+    botR = (1280, 720)
     
     cord1 = numpy.float32([topL, botL, topR, botR])
     cord2 = numpy.float32([[0,0], [0,720], [1280, 0], [1280, 720]])

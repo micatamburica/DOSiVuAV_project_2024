@@ -1,7 +1,7 @@
 import cv2
 import numpy
 
-def distortion_correction(srcImgPath, srcImgName, undistort = False, side_by_side = False):
+def distortion_correction(srcImgPath, srcImgName = None, undistort = False, side_by_side = False):
     """
     Corrects the distortion of a given image and returns it
     
