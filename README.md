@@ -32,6 +32,8 @@ The camera calibration and image distortion correction can be tested with the gi
 
 ![plot](./output/sbys_calibration4.jpg)
 
+-
+
 ### Pipeline (single images)
 
 #### 1. Provide an example of a distortion-corrected image.
