@@ -39,7 +39,7 @@ if __name__=="__main__":
         undistortedImg = cv2.undistort(img, mtx, dist, None, newcameraMtx)
     
         # 2. Thresholded binary image
-        treshBinImg = procc.detection(undistortedImg)
+        treshBinImg = procc.image_thresholding(undistortedImg)
         
         # 3. Perspective transformation 
         transformedImg = procc.transformation(treshBinImg)
