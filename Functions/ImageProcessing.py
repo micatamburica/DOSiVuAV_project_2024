@@ -29,18 +29,19 @@ def image_thresholding(Img, srcImgName = None):
     return treshBinImg
 
 
-def transformation(Img, srcImgName = None, transform = False):
+def image_perspective(Img, srcImgName = None):
     """
-    Changes the perspective into bird-eye view and returns it
+    Changes the perspective into birds-eye view and returns it
     
     params:
-        transform = False (automatic)
-        transform = True (if you want transformed image saved as output)
+        srcImgName - if given a value, 
+        image with changed perspective will be saved in output/.
 
     returns:
         transformedImg 
     """
     
+    # region of interest is handpicked with this coordinates
     topL = (560, 450)
     topR = (750, 450)
     botL = (0, 720)
@@ -49,12 +50,15 @@ def transformation(Img, srcImgName = None, transform = False):
     cord1 = numpy.float32([topL, botL, topR, botR])
     cord2 = numpy.float32([[0,0], [0,720], [1280, 0], [1280, 720]])
     
+    # matrix for normal -> birds-eye
     matrix = cv2.getPerspectiveTransform(cord1, cord2)
+        
+    # transform perspective of an image using matrix    
     transformedImg = cv2.warpPerspective(Img, matrix, (1280, 720))
     
     # save the final result if needed
-    if(transform):
-        cv2.imwrite('output/transformed_' + srcImgName, transformedImg)
+    if srcImgName is not None:
+        cv2.imwrite('output/birds-eye_' + srcImgName, transformedImg)
     
     return transformedImg
     

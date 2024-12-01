@@ -55,7 +55,11 @@ Second step in the pipeline is to single out object of interest in the image, wh
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-TODO: Add your text here!!!
+Third step in the pipeline is to perform perspective transformation, so to make it easier to visualize the two parallel lines and their curvature. Good way to do this is to select an area of interest that has the lane markings and transform it into birds-eye perspective.
+
+***FIND IN CODE     image_pipeline_main.py:  # 3. Perspective transformation [21-22]<br />FIND IN CODE     Functions/ImageProcessing.py:  image_perspective() [32-64]***
+
+![plot](./output/birds-eye_solidYellowCurve2.jpg)
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 

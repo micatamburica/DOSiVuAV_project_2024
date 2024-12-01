@@ -42,7 +42,7 @@ if __name__=="__main__":
         treshBinImg = procc.image_thresholding(undistortedImg)
         
         # 3. Perspective transformation 
-        transformedImg = procc.transformation(treshBinImg)
+        transformedImg = procc.image_perspective(treshBinImg)
         
         # 4. Identify lane-line pixels
         

@@ -19,8 +19,9 @@ if __name__=="__main__":
     treshBinImg = ImProc.image_thresholding(undistoredImg)
     
     # 3. Perspective transformation 
-    transformedImg = ImProc.transformation(treshBinImg, srcImgName)
-    
+    transformedImg = ImProc.image_perspective(treshBinImg)
+   
+'''
     # 4. Identify lane-line pixels
     identifiedImg, lx, rx, ly, ry = idden.identify(transformedImg, srcImgName)
     
@@ -55,3 +56,4 @@ if __name__=="__main__":
     cv2.imshow("Lane Detection - Sliding Windows", undistoredImg)
     
     cv2.waitKey(0)
+'''
