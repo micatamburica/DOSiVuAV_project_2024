@@ -1,78 +1,77 @@
 import numpy
 import cv2
-import matplotlib.pyplot as plt
 
-def identify(Img, srcImgName = None, identified = False):
-    windowSize=10
+def lane_identifying(Img, srcImgName = None):
+    """
+    Identify lane-line pixels using the sliding window technique
+    
+    params:
+        srcImgName - if given a value, 
+        image with sliding window will be saved in output/.
+
+    returns:
+        LeftX, RightX, LeftY, RightY 
+    """
+    
+    windowSize = 10
+    windowWidth = 50
+    Y = 720
+    
+    copyImg = Img.copy()
+    
     # get histogram of the picture
-    histogram = numpy.sum(Img[Img.shape[0]//2:, :], axis=0)
-    
-    # plt.figure(figsize=(windowSize, 6))
-    # plt.plot(histogram, color='blue', label='Sum of Pixel Intensities')
-    # plt.title('Histogram of Sum of Pixel Intensities (Lower Half of Image)')
-    # plt.xlabel('Column Index')
-    # plt.ylabel('Sum of Pixel Values')
-    # plt.legend()
-    # plt.grid(True)
-    # plt.show()
-    
+    histogramVal = numpy.sum(Img[Img.shape[0]//2:, :], axis=0)
+
     # find the middle point, left and right high peaks
-    midpoint = int(histogram.shape[0]/2)
-    left_base = numpy.argmax(histogram[:midpoint])
-    right_base = numpy.argmax(histogram[midpoint:]) + midpoint
+    midpoint = int(histogramVal.shape[0]/2)
+    left_base = numpy.argmax(histogramVal[:midpoint])
+    right_base = numpy.argmax(histogramVal[midpoint:]) + midpoint
 
-    # sliding Window
-    y = 720
-    lx = []
-    ly = []
-    rx = []
-    ry = []
+    # list to save coordinates
+    LeftX = []
+    LeftY = []
+    RightX = []
+    RightY = []
     
-    
-    
-    
-   
-
+    # starting from bottom of the picture (720 pix) and moving up by window size (10 pix)
+    while Y > 0:
         
-    
-    
-    while y > 0:
-        # left
-        img = Img[y-windowSize:y, left_base-50:left_base+50]
+        # left lane
+        img = copyImg[Y-windowSize:Y, left_base-windowWidth:left_base+windowWidth]
         contours, _ = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         for contour in contours:
             M = cv2.moments(contour)
             if M["m00"] != 0:
                 cx = int(M["m10"]/M["m00"])
-                cy = int(M["m01"]/M["m00"])
-                #lx.append(left_base-50 + cx)
-                #ly.append(y-20)
-                left_base = left_base-50 + cx
+                left_base = left_base - windowWidth + cx
         
-        # right
-        img = Img[y-windowSize:y, right_base-50:right_base+50]
+        # right lane
+        img = copyImg[Y-windowSize:Y, right_base-windowWidth:right_base+windowWidth]
         contours, _ = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         for contour in contours:
             M = cv2.moments(contour)
             if M["m00"] != 0:
                 cx = int(M["m10"]/M["m00"])
-                cy = int(M["m01"]/M["m00"])
-                #rx.append(right_base-50 + cx)
-                #ry.append(y-20 + cy)
-                right_base = right_base-50 + cx
+                right_base = right_base - windowWidth + cx
         
-        cv2.rectangle(Img, (left_base-50,y), (left_base+50,y-windowSize), (255,255,255), 2)
-        lx.append(left_base)
-        ly.append(y)
-        cv2.rectangle(Img, (right_base-50,y), (right_base+50,y-windowSize), (255,255,255), 2)
-        rx.append(right_base)
-        ry.append(y)
-        y -= windowSize
+        # save the results as rectangles on the picture, and as coordinates
+        cv2.rectangle(copyImg, (left_base-windowWidth, Y), (left_base+windowWidth, Y-windowSize), (255,255,255), 2)
+        LeftX.append(left_base)
+        LeftY.append(Y)
+        cv2.rectangle(copyImg, (right_base-windowWidth, Y), (right_base+windowWidth, Y-windowSize), (255,255,255), 2)
+        RightX.append(right_base)
+        RightY.append(Y)
+        
+        Y -= windowSize
     
+    # save the final result if needed
+    if srcImgName is not None:
+        cv2.imwrite('output/identified_' + srcImgName, copyImg)
+        
+    return LeftX, RightX, LeftY, RightY
+    
+'''
     # Fit polynomial to left lane
-    
-    
-
     left_poly = numpy.polyfit(ly, lx, 2)
     plot_y = numpy.linspace(0, 720, num=720)
     left_fit_x = left_poly[0] * plot_y**2 + left_poly[1] * plot_y + left_poly[2]
@@ -121,3 +120,5 @@ def identify(Img, srcImgName = None, identified = False):
     original_ry = original_coords_right[:, 0, 1].tolist()
       
     return identifiedImg, original_lx, original_rx, original_ly, original_ry
+    
+'''

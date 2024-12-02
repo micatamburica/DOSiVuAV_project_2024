@@ -1,6 +1,6 @@
 import Functions.CameraCalibration as correc
 import Functions.ImageProcessing as procc
-import Functions.line_identifying as idden
+import Functions.LaneIdentifying as idden
 import Functions.vehicle_calculation as vehhic
 import numpy
 import cv2
@@ -47,7 +47,7 @@ if __name__=="__main__":
         # 4. Identify lane-line pixels
         
 
-        identifiedImg, lx, rx, ly, ry = idden.identify(transformedImg)
+        identifiedImg, lx, rx, ly, ry = idden.lane_identifying(transformedImg)
         
        
         

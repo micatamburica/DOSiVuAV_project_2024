@@ -1,6 +1,6 @@
 import Functions.CameraCalibration as CamCal
 import Functions.ImageProcessing as ImProc
-import Functions.line_identifying as idden
+import Functions.LaneIdentifying as LaIden
 import Functions.vehicle_calculation as vehhic
 import numpy
 import cv2
@@ -21,10 +21,10 @@ if __name__=="__main__":
     # 3. Perspective transformation 
     transformedImg = ImProc.image_perspective(treshBinImg)
    
-'''
     # 4. Identify lane-line pixels
-    identifiedImg, lx, rx, ly, ry = idden.identify(transformedImg, srcImgName)
+    LeftX, RightX, LeftY, RightY = LaIden.lane_identifying(transformedImg)
     
+'''
     # Fit polynomial to left lane
     left_poly = numpy.polyfit(ly, lx, 2)
     plot_y = numpy.linspace(720, 450)
