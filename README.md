@@ -69,7 +69,7 @@ Fourth step in the pipeline is to identify lane-line pixels in the image, so tha
 
 Out of that we get the coordinates of the left and right peaks, that we use as starting points for finding lanes on the birds-eye image. The sliding window technique is then used to iterate through the image, from bottom to top. For every window, contours (edges) are found, and for every contour, moments are calculated. With that, parts of lanes are found and saved as coordinates (X, Y) for both left and right.
 
-***FIND IN CODE     image_pipeline_main.py:  # 4. Identify lane-line pixels [24-25]<br />FIND IN CODE     Functions/LaneIdentifying.py:  lane_identifying() [4-71]***
+***FIND IN CODE     image_pipeline_main.py:  # 4.1. Identify lane-line pixels [24-25]<br />FIND IN CODE     Functions/LaneIdentifying.py:  lane_identifying() [4-71]***
 
 ![plot](./output/identified_solidYellowCurve2.jpg)
 

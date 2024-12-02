@@ -1,5 +1,4 @@
-
-import numpy as np
+import numpy
 
 def radiusOfCurvature(Img, left_fit, right_fit):
     
@@ -8,8 +7,8 @@ def radiusOfCurvature(Img, left_fit, right_fit):
     y_eval = Img.shape[0]/2
     # left_radius = ((1 + (2*left_fit[0]*y_eval + left_fit[1])**2)**1.5) / (2*left_fit[0])
     # right_radius = ((1 + (2*right_fit[0]*y_eval + right_fit[1])**2)**1.5) / (2*right_fit[0])
-    left_curverad = ((1 + (2*left_fit[0]*y_eval*ym_per_pix + left_fit[1])**2)**1.5) / np.absolute(2*left_fit[0])
-    right_curverad = ((1 + (2*right_fit[0]*y_eval*ym_per_pix + right_fit[1])**2)**1.5) / np.absolute(2*right_fit[0])
+    left_curverad = ((1 + (2*left_fit[0]*y_eval*ym_per_pix + left_fit[1])**2)**1.5) / numpy.absolute(2*left_fit[0])
+    right_curverad = ((1 + (2*right_fit[0]*y_eval*ym_per_pix + right_fit[1])**2)**1.5) / numpy.absolute(2*right_fit[0])
     avg_radius = (left_curverad+right_curverad)/2
     
     return round(left_curverad,2), round(right_curverad,2), round(avg_radius,2)
@@ -24,13 +23,13 @@ def curv_pos(img, l_fit, r_fit):
     # Define y-value where we want radius of curvature
     # I'll choose the maximum y-value, corresponding to the bottom of the image
     h = img.shape[0]
-    ploty = np.linspace(0, h-1, h)
-    y_eval = np.max(ploty)
+    ploty = numpy.linspace(0, h-1, h)
+    y_eval = numpy.max(ploty)
   
     # Identify the x and y positions of all nonzero pixels in the image
     nonzero = img.nonzero()
-    nonzeroy = np.array(nonzero[0])
-    nonzerox = np.array(nonzero[1])
+    nonzeroy = numpy.array(nonzero[0])
+    nonzerox = numpy.array(nonzero[1])
     # Again, extract left and right line pixel positions
     # leftx = nonzerox[l_lane_inds]
     # lefty = nonzeroy[l_lane_inds] 
@@ -53,7 +52,7 @@ def curv_pos(img, l_fit, r_fit):
         r_fit_x_int = r_fit[0]*h**2 + r_fit[1]*h + r_fit[2]
         lane_center_position = (r_fit_x_int + l_fit_x_int) /2
         center_dist = (car_position - lane_center_position) * xm_per_pix
-    return np.absolute(center_dist)
+    return numpy.absolute(center_dist)
 
 
     #lane_center_position = (r_fit_x_int + l_fit_x_int) /2 center_dist = (car_position - lane_center_position) * x_meters_per_pix

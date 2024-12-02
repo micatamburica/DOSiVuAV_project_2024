@@ -1,8 +1,8 @@
 import Functions.CameraCalibration as CamCal
 import Functions.ImageProcessing as ImProc
 import Functions.LaneIdentifying as LaIden
-import Functions.vehicle_calculation as vehhic
-import numpy
+import Functions.PolynomialFitting as PolFit
+import Functions.VehicleCalculations as VeCalc
 import cv2
 
 if __name__=="__main__":
@@ -21,7 +21,7 @@ if __name__=="__main__":
     # 3. Perspective transformation 
     transformedImg = ImProc.image_perspective(treshBinImg)
    
-    # 4. Identify lane-line pixels
+    # 4.1. Identify lane-line pixels
     LeftX, RightX, LeftY, RightY = LaIden.lane_identifying(transformedImg)
     
 '''

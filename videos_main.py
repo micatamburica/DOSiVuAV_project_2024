@@ -1,7 +1,7 @@
 import Functions.CameraCalibration as correc
 import Functions.ImageProcessing as procc
 import Functions.LaneIdentifying as idden
-import Functions.vehicle_calculation as vehhic
+import Functions.VehicleCalculations as vehhic
 import numpy
 import cv2
 
