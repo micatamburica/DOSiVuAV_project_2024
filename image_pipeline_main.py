@@ -24,26 +24,14 @@ if __name__=="__main__":
     # 4.1. Identify lane-line pixels
     LeftX, RightX, LeftY, RightY = LaIden.lane_identifying(transformedImg)
     
-'''
-    # Fit polynomial to left lane
-    left_poly = numpy.polyfit(ly, lx, 2)
-    plot_y = numpy.linspace(720, 450)
-    left_fit_x = left_poly[0] * plot_y**2 + left_poly[1] * plot_y + left_poly[2]
+    # 4.2. Fitting the polynomial
+    polyImg, LeftPoly, RightPoly = PolFit.fit_polynomial(undistoredImg, LeftX, RightX, LeftY, RightY)
     
-    # Fit polynomial to right lane
-    right_poly = numpy.polyfit(ry, rx, 2)
-    plot_y = numpy.linspace(720, 450)
-    right_fit_x = right_poly[0] * plot_y**2 + right_poly[1] * plot_y + right_poly[2]
+'''
     
     # 5. Determine curvature and vehicle position
     undistoredImg = CamCal.distortion_correction(originalImg)
     round_left, round_right, round_avg = vehhic.radiusOfCurvature(undistoredImg, left_poly, right_poly)
-    
-    # Draw the polynomial line
-    left_points = numpy.array([numpy.transpose(numpy.vstack([left_fit_x, plot_y]))], dtype=numpy.int32)
-    cv2.polylines(undistoredImg, left_points, isClosed=False, color=(0, 0, 255), thickness=5)  # Red
-    right_points = numpy.array([numpy.transpose(numpy.vstack([right_fit_x, plot_y]))], dtype=numpy.int32)
-    cv2.polylines(undistoredImg, right_points, isClosed=False, color=(0, 0, 255), thickness=5)  # Red
     
     text2 = 'Left Curvature : ' + str(round_left) + ', Right Curvature : ' + str(round_right)
     cv2.putText(undistoredImg, text2, (50,100), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255,0,0), 2, cv2.LINE_AA)

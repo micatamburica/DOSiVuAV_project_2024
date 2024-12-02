@@ -69,11 +69,19 @@ Fourth step in the pipeline is to identify lane-line pixels in the image, so tha
 
 Out of that we get the coordinates of the left and right peaks, that we use as starting points for finding lanes on the birds-eye image. The sliding window technique is then used to iterate through the image, from bottom to top. For every window, contours (edges) are found, and for every contour, moments are calculated. With that, parts of lanes are found and saved as coordinates (X, Y) for both left and right.
 
-***FIND IN CODE     image_pipeline_main.py:  # 4.1. Identify lane-line pixels [24-25]<br />FIND IN CODE     Functions/LaneIdentifying.py:  lane_identifying() [4-71]***
+***FIND IN CODE     image_pipeline_main.py:  # 4.1. Identify lane-line pixels [24-25]<br />FIND IN CODE     Functions/LaneIdentifying.py:  lane_identifying() [4-72]***
 
 ![plot](./output/identified_solidYellowCurve2.jpg)
 
+After that, found coordinates for left and right are used to calculate polynomial values (y = A*x^2 + B*x + C), so that we can get values of a continuous line, rather then array of dots. In that way, it resembles more of a lane-line. 
 
+![plot](./output/birds-eye_poly_solidYellowCurve2.jpg)
+
+The coordinates are then transformed from the birds-eye perspective to the original perspective and drawn into the original image.
+
+***FIND IN CODE     image_pipeline_main.py:  # 4.2. Fitting the polynomial [27-28]<br />FIND IN CODE     Functions/PolynomialFitting.py:  fit_polynomial() [4-65]***
+
+![plot](./output/poly_solidYellowCurve2.jpg)
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 

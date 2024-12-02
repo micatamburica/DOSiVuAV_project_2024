@@ -47,7 +47,7 @@ if __name__=="__main__":
         # 4. Identify lane-line pixels
         
 
-        identifiedImg, lx, rx, ly, ry = idden.lane_identifying(transformedImg)
+        lx, rx, ly, ry = idden.lane_identifying(transformedImg)
         
        
         
