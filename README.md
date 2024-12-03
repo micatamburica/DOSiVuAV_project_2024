@@ -111,7 +111,7 @@ Lane finding on the video is done same as the image, just that every frame is an
 
 ***FIND IN CODE     video_pipeline_main.py:  main [4-59]***
 
-![plot](./output/end_project_video01.mp4)
+![video](./output/end_project_video01.mp4)
 
 ### Discussion
 
