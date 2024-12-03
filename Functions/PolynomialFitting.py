@@ -1,13 +1,15 @@
 import numpy
 import cv2
 
-def fit_polynomial(Img, LeftX, RightX, LeftY, RightY, srcImgName = None):
+def fit_polynomial(Img, LeftX, RightX, LeftY, RightY, srcImgName = None, fill = False):
     """
     Finds the polynomial and draws it on the image
     
     params:
         srcImgName - if given a value, 
         image with polynomial will be saved in output/. 
+        fill - if given True, 
+        area of the lane will be filled in.
 
     returns:
         polynomialImg, left_fit_x, right_fit_x
@@ -51,6 +53,11 @@ def fit_polynomial(Img, LeftX, RightX, LeftY, RightY, srcImgName = None):
     original_RightX = original_coords_right[:, 0, 0].tolist()
     original_RightY = original_coords_right[:, 0, 1].tolist()
     
+    # fill in the area
+    if fill is True:
+        corners = numpy.array([[original_RightX[0], original_RightY[0]], [original_LeftX[0], original_LeftY[0]], [original_LeftX[719], original_LeftY[719]], [original_RightX[719], original_RightY[719]]], dtype=numpy.int32)
+        cv2.fillPoly(Img, [corners], (130, 180, 0, 120))
+
     # draw the polynomial line
     left_points = numpy.array([numpy.transpose(numpy.vstack([original_LeftX, original_LeftY]))], dtype=numpy.int32)
     cv2.polylines(Img, left_points, isClosed=False, color=(0, 0, 150), thickness=4)  # left - red
@@ -61,4 +68,4 @@ def fit_polynomial(Img, LeftX, RightX, LeftY, RightY, srcImgName = None):
     if srcImgName is not None:
         cv2.imwrite('output/poly_' + srcImgName, Img)
         
-    return Img, left_fit_x, right_fit_x
+    return Img, left_poly, right_poly

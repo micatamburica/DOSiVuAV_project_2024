@@ -79,27 +79,37 @@ After that, found coordinates for left and right are used to calculate polynomia
 
 The coordinates are then transformed from the birds-eye perspective to the original perspective and drawn into the original image.
 
-***FIND IN CODE     image_pipeline_main.py:  # 4.2. Fitting the polynomial [27-28]<br />FIND IN CODE     Functions/PolynomialFitting.py:  fit_polynomial() [4-65]***
+***FIND IN CODE     image_pipeline_main.py:  # 4.2. Fitting the polynomial [27-28]<br />FIND IN CODE     Functions/PolynomialFitting.py:  fit_polynomial() [4-72]***
 
 ![plot](./output/poly_solidYellowCurve2.jpg)
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-TODO: Add your text here!!!
+Radius of curvature is calculated using the **R = (1 + (2*A*x + B)^2)^3/2 / |2*A|** equation. A and B are coefficients of the polynomial that was calculated, x is the current position of the vehicle. There is also an added value that shows the scale of meters per pixel. Radius of left and right lane-line are used to find radius of a center line of the lane.
+
+***FIND IN CODE     image_pipeline_main.py:  # 5. Determine curvature and vehicle position [31]<br />FIND IN CODE     Functions/VehicleCalculations.py:  radius_of_curvature() [4-28]***
+
+Position of the lane-lines are calculated using the **y = A*x^2 + B*x + C** equation. A, B and C are coefficients of the polynomial that was calculated, x is the current position of the vehicle. It is assumed that the vehicle is placed in the center of the picture, and position of the vehicle is calculated with respect to the center between the two lane-lines. There is also added values that shows the scale of meters per pixel (3.7 m is the averige size of an american lane).
+
+***FIND IN CODE     image_pipeline_main.py:  # 5. Determine curvature and vehicle position [32]<br />FIND IN CODE     Functions/VehicleCalculations.py:  vehicle_position() [31-64]***
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-TODO: Add your text here!!!
+Onto an undistorted input image, radius of curvature, vehicle position, lane-lines, lane area (if the fill in the function fit_polynomial() is True) are plotted. Results of the example image are saved in the output/ file, as well as some other example images in different phases of the pipeline. 
+
+***FIND IN CODE     image_pipeline_main.py:  # 6. Example image [34-36]***
+
+![plot](./output/end_solidYellowCurve2.jpg)
 
 ### Pipeline (video)
 
-#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+#### 1. Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
 TODO: Add your text here!!!
 
 ### Discussion
 
-#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
 
 TODO: Add your text here!!!
 

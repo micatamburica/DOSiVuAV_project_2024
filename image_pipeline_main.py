@@ -25,23 +25,12 @@ if __name__=="__main__":
     LeftX, RightX, LeftY, RightY = LaIden.lane_identifying(transformedImg)
     
     # 4.2. Fitting the polynomial
-    polyImg, LeftPoly, RightPoly = PolFit.fit_polynomial(undistoredImg, LeftX, RightX, LeftY, RightY)
+    polyImg, LeftPoly, RightPoly = PolFit.fit_polynomial(undistoredImg, LeftX, RightX, LeftY, RightY, fill=False)
     
-'''
+    # 5. Determine curvature and vehicle position 
+    imgWithRadius, radius = VeCalc.radius_of_curvature(undistoredImg, LeftPoly, RightPoly)
+    imgWithPosition, position = VeCalc.vehicle_position(imgWithRadius, LeftPoly, RightPoly)
     
-    # 5. Determine curvature and vehicle position
-    undistoredImg = CamCal.distortion_correction(originalImg)
-    round_left, round_right, round_avg = vehhic.radiusOfCurvature(undistoredImg, left_poly, right_poly)
-    
-    text2 = 'Left Curvature : ' + str(round_left) + ', Right Curvature : ' + str(round_right)
-    cv2.putText(undistoredImg, text2, (50,100), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255,0,0), 2, cv2.LINE_AA)
-    text3 = 'Average Curvature : ' + str(round_avg)
-    cv2.putText(undistoredImg, text3, (50,150), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255,0,0), 2, cv2.LINE_AA)
-    
-    vehhic.curv_pos(undistoredImg,left_poly,right_poly)
-    
-    
-    cv2.imshow("Lane Detection - Sliding Windows", undistoredImg)
-    
+    # 6. Example image
+    cv2.imshow("Example Image " + srcImgName, imgWithPosition)
     cv2.waitKey(0)
-'''
