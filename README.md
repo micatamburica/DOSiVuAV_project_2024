@@ -105,11 +105,26 @@ Onto an undistorted input image, radius of curvature, vehicle position, lane-lin
 
 #### 1. Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-TODO: Add your text here!!!
+The image pipeline can be tested with the given command:   <ins>python video_pipeline_main.py</ins>
+
+Lane finding on the video is done same as the image, just that every frame is analized separately.
+
+***FIND IN CODE     video_pipeline_main.py:  main [4-59]***
+
+![plot](./output/end_project_video01.mp4)
 
 ### Discussion
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
 
-TODO: Add your text here!!!
+Failures in the pipeline:
 
+Thresholded binary image - the image thresholding is very simple, with just transformation to gray, gaussian blur and canny. It works most of the time, but on images where the road is very light, canny loses the lane-lines, usualy the yellow one. To fix this, different thresholding can be done to the image, such as first masking the yellow and white color, so that they are not lost. Also some other method can be tried rather then canny.
+
+Perspective transformation - in the perspective transformation, region of interest is handpicked with coordinates. It is a method that works since the road is usualy at the expected place on the image, but when the road changes altitude or there is a charp turn, it can go out of the region of interest. To fix this, region of interest can be found dynamically, rather then being static.
+
+Identifing lane-line pixels - the sliding window technique works well since the window size is small. However, on the video format it would be better if there was some type of history, so that the next lane-line pixels were determined with the older ones in mind. Since the road is continuous, the next frame should be similar to the previous one, rather than having a completely different lane-line. That would also help if there was no lane-line detected, rather then having no lane-line, the older one could be used until the new one is found.
+
+Determine curvature and vehicle position - in the calculations, vehicle current position and meters per pixel are just assumed. The calculation would be more precise if the real values were given. 
+
+Draw the polynomial line - couldn't make the fill of the area transparent, since the images wouldn't take the alpha channel value. Also only end points of the lines were used for filling in the shape, rather then the whole line. 
