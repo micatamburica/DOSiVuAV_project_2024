@@ -9,7 +9,7 @@ if __name__=="__main__":
     
     #input
     srcImgPath = 'test_videos/'
-    srcImgName = 'challenge03.mp4'
+    srcImgName = 'challenge01.mp4'
     cap = cv2.VideoCapture(srcImgPath + srcImgName)
     
     #output will be saved if Output = True
