@@ -111,8 +111,8 @@ Lane finding on the video is done same as the image, just that every frame is an
 
 ***FIND IN CODE     video_pipeline_main.py:  main [4-59]***
 
-Link to video project_video01:  ![video](./output/end_project_video01.mp4)
-Link to video project_video02:  ![video](./output/end_project_video02.mp4)
+Link to video project_video01:  ![video](./output/end_project_video01.mp4)<br />
+Link to video project_video02:  ![video](./output/end_project_video02.mp4)<br />
 Link to video project_video03:  ![video](./output/end_project_video03.mp4)
 
 ### Discussion
